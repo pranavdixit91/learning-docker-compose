@@ -5,6 +5,10 @@ services:
     build: scheduler/.
     ports:
       - "81:80"
+    depends_on:
+      - database
+    profiles:
+      - scheduling_services
   storefront: 
     build: storefront/.
     ports:
@@ -12,6 +16,8 @@ services:
       - "443:443"
     depends_on:
       - database
+    profiles:
+      - storefront_services
   database: 
     image: "mysql"
     env_file:
