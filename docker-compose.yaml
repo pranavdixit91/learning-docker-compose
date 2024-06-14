@@ -11,3 +11,7 @@ services:
       - runtime_user=pranav
   database: 
     image: "mysql"
+    env_file:
+      - ./mysql/env_vars
+    volumes:
+      - ./mysql:/var/lib/mysql:rw      
