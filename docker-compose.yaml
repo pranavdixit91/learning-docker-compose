@@ -1,19 +1,21 @@
 version: "3.9"
 
 services:
+  scheduler:
+    build: scheduler/.
+    ports:
+      - "81:80"
   storefront: 
-    build:
-      context: .
-      args:
-      - region=us-east-1
-        - pranav=true
-    environment:
-      - runtime_user=pranav
+    build: storefront/.
+    ports:
+      - "80:80"
+      - "443:443"
   database: 
     image: "mysql"
     env_file:
       - ./mysql/env_vars
     volumes:
-      - kineteco:/var/lib/mysql:rw
+      - ./mysql:/docker-entrypoint-initdb.d:ro
+      - kineteco:/var/lib/mysql
 volumes:
-  kineteco
+  kineteco: 
